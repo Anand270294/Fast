@@ -2,28 +2,23 @@ import fast.fast as ft
 import numpy as np
 import time, json, cpuinfo
 
-limit = 100 # Try to limit limit to 10 000 / 50 000
+limit = 50000000 # Try to limit limit to 10 000 / 50 000
 norm = []
 npy = []
 cpu_list = []
 gpu_list = []
 sizes = []
 
-#gpu = ft.gpu()
+gpu = ft.gpu()
 cpu = ft.cpu()
 
 
-for i in range(limit):
-    A = np.arange(0,i,0.00000015)
+for i in range(49999990,limit):
+    #A = np.arange(0,i,0.00000015)
+    A = range(0,limit)
     C = []
 
-    sizes.append(A.size)
-
-    # start_time = time.perf_counter()
-    # for j in range(A.size):
-    #     C.append(A[j] * B[j]) 
-    # time_taken = time.perf_counter() - start_time
-    # norm.append(time_taken)
+    #sizes.append(A.size)
 
     start_time1 = time.perf_counter()
     C = np.multiply(A, A)
@@ -31,14 +26,14 @@ for i in range(limit):
     npy.append(time_taken1)
 
     start_time2 = time.perf_counter()
-    C = cpu.mul(A, A, 0)
-    time_taken2 = time.perf_counter() - start_time1
+    C = cpu.ExMul(A, A)
+    time_taken2 = time.perf_counter() - start_time2
     cpu_list.append(time_taken2)
 
-#     start_time = time.perf_counter()
-#     C = gpu.mul(A, B)
-#     time_taken = time.perf_counter() - start_time
-#     gpu_list.append(time_taken)
+    start_time = time.perf_counter()
+    C = gpu.mul(A, A)
+    time_taken = time.perf_counter() - start_time
+    gpu_list.append(time_taken)
 
     print("Completed Test Number : {}".format(i) )
 

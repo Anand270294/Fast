@@ -67,6 +67,7 @@ public:
 		return deflt;
 	}
 
+
 	std::vector<int> mul(std::vector<int> A, std::vector<int> B) {
 
 		// Assert that Matricies A & B are of the same size
@@ -99,12 +100,16 @@ public:
 		// Generate and build the program using OpenCL2.2
 		cl::Program prg(context, sources);
 		cl_int error = 0;
-		error = prg.build("-cl-std=CL2.2");
+		error = prg.build("-cl-std=CL1.2 -cl-fast-relaxed-math");
+
+		// Break the program here to precomplie and build then run 
 		
 		// Create buffers for the variables being used A, B and C
 		cl::Buffer A_buffer(context, CL_MEM_READ_ONLY | CL_MEM_HOST_NO_ACCESS | CL_MEM_COPY_HOST_PTR, size * sizeof(int), A.data());
 		cl::Buffer B_buffer(context, CL_MEM_READ_ONLY | CL_MEM_HOST_NO_ACCESS | CL_MEM_COPY_HOST_PTR, size * sizeof(int), B.data());
 		cl::Buffer C_buffer(context, CL_MEM_WRITE_ONLY | CL_MEM_HOST_READ_ONLY, size * sizeof(int));
+
+		// Try breaking here as well it could work.......
 
 		cl::Kernel kernel(prg, "Mul", &error);
 
@@ -154,7 +159,7 @@ public:
 		// Generate and build the program using OpenCL1.2
 		cl::Program prg(context, sources);
 		cl_int error = 0;
-		error = prg.build("-cl-std=CL1.2");
+		error = prg.build("-cl-std=CL1.2 -cl-fast-relaxed-math");
 		
 		// Create buffers for the variables being used A, B and C
 		cl::Buffer A_buffer(context, CL_MEM_READ_ONLY | CL_MEM_HOST_NO_ACCESS | CL_MEM_COPY_HOST_PTR, size * sizeof(float), A.data());
@@ -233,17 +238,36 @@ class cpu {
 	}
 
 	std::vector<float> ExMul(std::vector<float> A, std::vector<float> B) {
+		Eigen::initParallel();
+
 		int cores = omp_get_max_threads();
 		Eigen::setNbThreads(cores);
+
 		// Convert into Eigen Class Arrays	
 		Eigen::ArrayXf _A = Eigen::Map<Eigen::ArrayXf, Eigen::Unaligned>(A.data(), A.size());
 		Eigen::ArrayXf _B = Eigen::Map<Eigen::ArrayXf, Eigen::Unaligned>(B.data(), B.size());
-		
-		//#pragma omp parallel 	
+			
 		_A *= _B;
 		
 
 		std::vector<float> C (_A.data(), _A.data() + _A.size());
+		return C;
+	}	
+
+	std::vector<int> ExMul(std::vector<int> A, std::vector<int> B) {
+		Eigen::initParallel();
+
+		int cores = omp_get_max_threads();
+		Eigen::setNbThreads(cores);
+
+		// Convert into Eigen Class Arrays	
+		Eigen::ArrayXi _A = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(A.data(), A.size());
+		Eigen::ArrayXi _B = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(B.data(), B.size());
+			
+		_A *= _B;
+		
+
+		std::vector<int> C (_A.data(), _A.data() + _A.size());
 		return C;
 	}	
 
@@ -286,7 +310,9 @@ PYBIND11_MODULE(fast, m) {
 			.def("ExMul", [](cpu & c, std::vector<float>A, std::vector<float> B){
 					return c.ExMul(A, B);
 			})
+			.def("ExMul", [](cpu & c, std::vector<int>A, std::vector<int> B){
+					return c.ExMul(A, B);
+			})
 			;
-
 
 }
