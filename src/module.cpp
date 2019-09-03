@@ -101,8 +101,7 @@ public:
 		cl::Program prg(context, sources);
 		cl_int error = 0;
 		error = prg.build("-cl-std=CL1.2 -cl-fast-relaxed-math");
-
-		// Break the program here to precomplie and build then run 
+ 
 		
 		// Create buffers for the variables being used A, B and C
 		cl::Buffer A_buffer(context, CL_MEM_READ_ONLY | CL_MEM_HOST_NO_ACCESS | CL_MEM_COPY_HOST_PTR, size * sizeof(int), A.data());
@@ -260,7 +259,7 @@ class cpu {
 		int cores = omp_get_max_threads();
 		Eigen::setNbThreads(cores);
 
-		// Convert into Eigen Class Arrays	
+		// Convert into Eigen Class Arrays	// May have to move map to another class to improve multiplication
 		Eigen::ArrayXi _A = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(A.data(), A.size());
 		Eigen::ArrayXi _B = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(B.data(), B.size());
 			

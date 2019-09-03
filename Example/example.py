@@ -3,22 +3,19 @@ import numpy as np
 import time, json, cpuinfo
 
 limit = 50000000 # Try to limit limit to 10 000 / 50 000
-norm = []
+size = 5
 npy = []
 cpu_list = []
+cpuEx_list = []
 gpu_list = []
-sizes = []
 
 gpu = ft.gpu()
 cpu = ft.cpu()
 
 
-for i in range(49999990,limit):
-    #A = np.arange(0,i,0.00000015)
-    A = range(0,limit)
+while(True):
+    A = [x * 0.183736125 for x in range(0, size)]
     C = []
-
-    #sizes.append(A.size)
 
     start_time1 = time.perf_counter()
     C = np.multiply(A, A)
@@ -28,24 +25,33 @@ for i in range(49999990,limit):
     start_time2 = time.perf_counter()
     C = cpu.ExMul(A, A)
     time_taken2 = time.perf_counter() - start_time2
-    cpu_list.append(time_taken2)
+    cpuEx_list.append(time_taken2)
 
     start_time = time.perf_counter()
-    C = gpu.mul(A, A)
+    C = cpu.mul(A, A, 0)
     time_taken = time.perf_counter() - start_time
+    cpu_list.append(time_taken)
+
+    start_time3 = time.perf_counter()
+    C = gpu.mul(A, A)
+    time_taken = time.perf_counter() - start_time3
     gpu_list.append(time_taken)
 
-    print("Completed Test Number : {}".format(i) )
+    print("Completed Test Number : {}".format(size) )
+
+    if size >= limit:
+        break
+    
+    size = size * 10
 
         
 bnmk = dict()
 bnmk['Test'] = 'Python CXX Wrapper Benchmark'
 bnmk['CPU/GPU Used'] = cpuinfo.get_cpu_info()['brand'] 
-bnmk['normal'] = norm
 bnmk['numpy'] = npy
 bnmk['cpu'] = cpu_list
+bnmk['cpuEx'] = cpuEx_list
 bnmk['gpu'] = gpu_list
-bnmk['sizes'] = sizes
  
 jsonfile = 'wrapper_test.json'
 
@@ -53,7 +59,3 @@ with open(jsonfile, 'w') as json_file:
     json.dump(bnmk, json_file)
 
 print("Benchmarking Complete!")
-
-
-
-
