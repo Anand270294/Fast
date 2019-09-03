@@ -262,8 +262,12 @@ class cpu {
 		// Convert into Eigen Class Arrays	// May have to move map to another class to improve multiplication
 		Eigen::ArrayXi _A = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(A.data(), A.size());
 		Eigen::ArrayXi _B = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(B.data(), B.size());
-			
-		_A *= _B;
+
+		# pragma omp parallel for
+		for(std::size_t i = 0; i < _A.size(); i ++){
+			_A[i] = _A[i] * _B[i];
+		}	
+		//_A *= _B;
 		
 
 		std::vector<int> C (_A.data(), _A.data() + _A.size());
