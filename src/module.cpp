@@ -191,50 +191,6 @@ class cpu {
 		return omp_get_max_threads();
 	}
 
-	// std::vector<long> mul(std::vector<long> A, std::vector<long> B, int offset) {
-	// 	int max_cores = omp_get_max_threads() - offset;
-
-	// 	if ( A.size() != B.size()) {
-	// 		std::vector<long> empty;
-	// 		return empty;
-	// 	}
-                
-	// 	//#pragma omp parallel
-	// 	std::vector<long> C;
-
-	// 	#pragma omp parallel for ordered 
-	// 	for (int i = 0; i < A.size(); i++) {
-	// 		long temp = A.at(i) * B.at(i);
-
-	// 		#pragma omp ordered
-	// 		C.push_back(temp);
-	// 	}
-
-	// 	return C;
-
-	// }
-
-	// std::vector<float> mul(std::vector<float> A, std::vector<float> B, int offset) {
-	// 	int max_cores = omp_get_max_threads() - offset;
-
-	// 	if (A.size() != B.size()) {
-	// 		std::vector<float> empty;
-	// 		return empty;
-	// 	}
-
-	// 	std::vector<float> C;
-
-	// 	#pragma omp parallel for ordered
-	// 	for (std::size_t i = 0; i < A.size(); i++) {
-	// 		float temp = A.at(i) * B.at(i);
-
-	// 		#pragma omp ordered
-	// 		C.push_back(temp);
-	// 	}
-
-	// 	return C;
-
-	// }
 
 	std::vector<float> mul(std::vector<float> A, std::vector<float> B) {
 		Eigen::initParallel();
@@ -246,7 +202,10 @@ class cpu {
 		Eigen::ArrayXf _A = Eigen::Map<Eigen::ArrayXf, Eigen::Unaligned>(A.data(), A.size());
 		Eigen::ArrayXf _B = Eigen::Map<Eigen::ArrayXf, Eigen::Unaligned>(B.data(), B.size());
 			
-		_A *= _B;
+		# pragma omp parallel for simd
+		for(std::size_t i = 0; i < _A.size(); i ++){
+			_A[i] = _A[i] * _B[i];
+		}	
 		
 
 		std::vector<float> C (_A.data(), _A.data() + _A.size());
@@ -297,17 +256,17 @@ PYBIND11_MODULE(fast, m) {
 			;
 
 		// CPU multi-core class for MultiCore multiplications
-			py::class_<cpu> (m, "cpu", py::dynamic_attr())
-			.def(py::init())
-			.def("get_maxCore", [](cpu & c){
-					return c.get_maxCores();
-			})
-			.def("mul", [](cpu & c, std::vector<int> A, std::vector<int> B){
-					return c.mul(A, B);
-			})
-			.def("mul", [](cpu & c, std::vector<float> A, std::vector<float> B){
-					return c.mul(A, B);
-			})
-			;
+		py::class_<cpu> (m, "cpu", py::dynamic_attr())
+		.def(py::init())
+		.def("get_maxCore", [](cpu & c){
+				return c.get_maxCores();
+		})
+		.def("mul", [](cpu & c, std::vector<int> A, std::vector<int> B){
+				return c.mul(A, B);
+		})
+		.def("mul", [](cpu & c, std::vector<float> A, std::vector<float> B){
+				return c.mul(A, B);
+		})
+		;
 
 }
