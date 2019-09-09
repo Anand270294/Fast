@@ -27,8 +27,8 @@ user@user:~/Desktop/Fast$
 ```
 
 4.  Install the Library! 
+..* For the parameter it is advised to use `develop` if users wish to customise the functions available in the library. However users can also use `install` as a parameter.
 ```
 user@user:~/Desktop/Fast$ python setup.py [Parameter]
 ```
-..* For the parameter it is advised to use `develop` if users wish to customise the functions available in the library. However users can also use `install` as a parameter.
 
