@@ -85,7 +85,7 @@ public:
 		std::vector <cl::Platform> plt;
 		cl::Platform::get(&plt);
 
-		// Use Nvidia Platform for to obtain Device GPU
+		// Use Nvidia/AMD Platform for to obtain Device GPU
 		auto platform = plt.front();
 		std::vector < cl::Device > devices;
 		platform.getDevices(CL_DEVICE_TYPE_GPU, &devices);
@@ -143,7 +143,7 @@ public:
 		std::vector <cl::Platform> plt;
 		cl::Platform::get(&plt);
 
-		// Use Nvidia Platform for to obtain Device GPU
+		// Use Nvidia/AMD Platform for to obtain Device GPU
 		auto platform = plt.front();
 		std::vector < cl::Device > devices;
 		platform.getDevices(CL_DEVICE_TYPE_GPU, &devices);
@@ -207,7 +207,6 @@ class cpu {
 			_A[i] = _A[i] * _B[i];
 		}	
 		
-
 		std::vector<float> C (_A.data(), _A.data() + _A.size());
 		return C;
 	}	

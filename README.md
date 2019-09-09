@@ -1,5 +1,5 @@
 # Fast
-A library that is meant to be faster than Numpy for Linear Algebra Calculations
+A library for Linear Algebra Calculations (In Progress). **__Fast__** allows users to perform linear algebra calculations in *python* faster than native *python* language or even `Numpy` since **__Fast__** uses *PyBind11* to wrap C++ code into a *python* object. Furthermore, **__Fast__** utilises **Eigen3** Library which specialises in linear algebra calculations and **OpenMP** to allow parallel matrix calculations to boost performance.
 
 ## System Requirements:
 1. Python 3.x
