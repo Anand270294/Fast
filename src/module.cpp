@@ -191,52 +191,52 @@ class cpu {
 		return omp_get_max_threads();
 	}
 
-	std::vector<long> mul(std::vector<long> A, std::vector<long> B, int offset) {
-		int max_cores = omp_get_max_threads() - offset;
+	// std::vector<long> mul(std::vector<long> A, std::vector<long> B, int offset) {
+	// 	int max_cores = omp_get_max_threads() - offset;
 
-		if ( A.size() != B.size()) {
-			std::vector<long> empty;
-			return empty;
-		}
+	// 	if ( A.size() != B.size()) {
+	// 		std::vector<long> empty;
+	// 		return empty;
+	// 	}
                 
-		//#pragma omp parallel
-		std::vector<long> C;
+	// 	//#pragma omp parallel
+	// 	std::vector<long> C;
 
-		#pragma omp parallel for ordered 
-		for (int i = 0; i < A.size(); i++) {
-			long temp = A.at(i) * B.at(i);
+	// 	#pragma omp parallel for ordered 
+	// 	for (int i = 0; i < A.size(); i++) {
+	// 		long temp = A.at(i) * B.at(i);
 
-			#pragma omp ordered
-			C.push_back(temp);
-		}
+	// 		#pragma omp ordered
+	// 		C.push_back(temp);
+	// 	}
 
-		return C;
+	// 	return C;
 
-	}
+	// }
 
-	std::vector<float> mul(std::vector<float> A, std::vector<float> B, int offset) {
-		int max_cores = omp_get_max_threads() - offset;
+	// std::vector<float> mul(std::vector<float> A, std::vector<float> B, int offset) {
+	// 	int max_cores = omp_get_max_threads() - offset;
 
-		if (A.size() != B.size()) {
-			std::vector<float> empty;
-			return empty;
-		}
+	// 	if (A.size() != B.size()) {
+	// 		std::vector<float> empty;
+	// 		return empty;
+	// 	}
 
-		std::vector<float> C;
+	// 	std::vector<float> C;
 
-		#pragma omp parallel for ordered
-		for (std::size_t i = 0; i < A.size(); i++) {
-			float temp = A.at(i) * B.at(i);
+	// 	#pragma omp parallel for ordered
+	// 	for (std::size_t i = 0; i < A.size(); i++) {
+	// 		float temp = A.at(i) * B.at(i);
 
-			#pragma omp ordered
-			C.push_back(temp);
-		}
+	// 		#pragma omp ordered
+	// 		C.push_back(temp);
+	// 	}
 
-		return C;
+	// 	return C;
 
-	}
+	// }
 
-	std::vector<float> ExMul(std::vector<float> A, std::vector<float> B) {
+	std::vector<float> mul(std::vector<float> A, std::vector<float> B) {
 		Eigen::initParallel();
 
 		int cores = omp_get_max_threads();
@@ -253,23 +253,21 @@ class cpu {
 		return C;
 	}	
 
-	std::vector<int> ExMul(std::vector<int> A, std::vector<int> B) {
+	std::vector<int> mul(std::vector<int> A, std::vector<int> B) {
 		Eigen::initParallel();
 
 		int cores = omp_get_max_threads();
 		Eigen::setNbThreads(cores);
-
-		// Convert into Eigen Class Arrays	// May have to move map to another class to improve multiplication
+		
+		// Convert into Eigen Class Arrays	
 		Eigen::ArrayXi _A = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(A.data(), A.size());
 		Eigen::ArrayXi _B = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(B.data(), B.size());
 
-		# pragma omp parallel for
+		# pragma omp parallel for simd
 		for(std::size_t i = 0; i < _A.size(); i ++){
 			_A[i] = _A[i] * _B[i];
 		}	
-		//_A *= _B;
 		
-
 		std::vector<int> C (_A.data(), _A.data() + _A.size());
 		return C;
 	}	
@@ -304,17 +302,11 @@ PYBIND11_MODULE(fast, m) {
 			.def("get_maxCore", [](cpu & c){
 					return c.get_maxCores();
 			})
-			.def("mul", [](cpu & c, std::vector<long> A, std::vector<long> B, int offset){
-					return c.mul(A, B, offset);
+			.def("mul", [](cpu & c, std::vector<int> A, std::vector<int> B){
+					return c.mul(A, B);
 			})
-			.def("mul", [](cpu & c, std::vector<float> A, std::vector<float> B, int offset){
-					return c.mul(A, B, offset);
-			})
-			.def("ExMul", [](cpu & c, std::vector<float>A, std::vector<float> B){
-					return c.ExMul(A, B);
-			})
-			.def("ExMul", [](cpu & c, std::vector<int>A, std::vector<int> B){
-					return c.ExMul(A, B);
+			.def("mul", [](cpu & c, std::vector<float> A, std::vector<float> B){
+					return c.mul(A, B);
 			})
 			;
 

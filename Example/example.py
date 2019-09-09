@@ -2,7 +2,7 @@ import fast.fast as ft
 import numpy as np
 import time, json, cpuinfo
 
-limit = 500000000 # Try to limit limit to 10 000 / 50 000
+limit = 50000000 # Try to limit limit to 10 000 / 50 000
 size = 5
 npy = []
 cpu_list = []
@@ -14,7 +14,7 @@ cpu = ft.cpu()
 
 
 while(True):
-    A = range(0,size) #[x * 0.183736125 for x in range(0, size)]
+    A = [x * 0.183736125 for x in range(0, size)]
     C = []
 
     start_time1 = time.perf_counter()
