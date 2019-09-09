@@ -17,6 +17,5 @@ If all the aforementioned systems requirements have been met, you can do a quick
 1.  Clone **__Fast__**  repository to your preferred location.
 
 2.  Clone [**PyBind11**](https://github.com/pybind/pybind11) into the **__Fast__** Folder as shown below:
-Inline-style:
-![alt text](docs/imgs/clonepybind.png =100x200 "Where to clone Pybind11")
+<img src="docs/img/clonepybind.png" width=200>
 
