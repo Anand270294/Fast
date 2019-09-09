@@ -31,7 +31,7 @@ user@user:~/Desktop/Fast$
 ```
 user@user:~/Desktop/Fast$ python setup.py [option]
 ```
-* For the parameter it is advised to use `develop` if users wish to customise the functions available in the library. However users can also use `install` as a parameter.
+* For the `option` parameter it is advised to use `develop` if users wish to customise the functions available in the library. However users can also use `install` as a parameter.
 * If no Error messages are shown during the build and installation process,you are no able to use **__Fast__**, see the next section on how to use Fast.
 * However, if there are errors, it is highly recommended that you follow **full installtion procedure** as you may have missing dependencies.
 
