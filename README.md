@@ -12,7 +12,7 @@ A library for Linear Algebra Calculations (In Progress). **__Fast__** allows use
 
 
 ## Quick Installation 
-If all the aforementioned systems requirements have been met, you can do a quick installtion and use the **__Fast__** Library, else it is highly recommended that you follow the **full installtion procedure** before this step. 
+If all the aforementioned systems requirements have been met, you can do a quick installtion and use the **__Fast__** Library, else it is highly recommended that you follow the [**full installtion procedure**](docs/fullInstall.md) before this step. 
 
 ### Step to Take:
 
@@ -32,8 +32,8 @@ user@user:~/Desktop/Fast$
 user@user:~/Desktop/Fast$ python setup.py [option]
 ```
 * For the `option` parameter it is advised to use `develop` if users wish to customise the functions available in the library. However users can also use `install` as a parameter.
-* If no Error messages are shown during the build and installation process,you are no able to use **__Fast__**, see the next section on how to use Fast.
-* However, if there are errors, it is highly recommended that you follow **full installtion procedure** as you may have missing dependencies.
+* If no Error messages are shown during the build and installation process,you are now able to use **__Fast__**! See the next section on how to use Fast.
+* However, if there are errors, it is highly recommended that you follow [**full installtion procedure**](docs/fullInstall.md) as you may have missing dependencies.
 
 
 ### Using __Fast__
@@ -61,11 +61,12 @@ C = cpu.mul(A,A)
 Viola! You are done with the multiplication.
 
 * **Available functions**:
-1. `mul(A,B)` : Element-wise vector multiplication where `A` and `B` are 1-D Arrays with the same size and data-type.
+1. `getmaxCore()`  : returns an `integer` value showing the number of cores are available in the user's CPU.
+2. `mul(A,B)` : Element-wise vector multiplication where `A` and `B` are 1-D Arrays with the same size and data-type. Returns a 1-D Array.
 
 
 #### Using the GPU version:
-The `gpu` class utilises the PC's Graphics Processing Unit(GPU) to run the calculations that can be parallelized using [**OpenCL**](). Its working is similar to the `cpu` class, whereby a `gpu` object needs to created before it can used. However it is also advisable to check the available GPUs on your PC before running.
+The `gpu` class utilises the PC's Graphics Processing Unit (GPU) to run the calculations that can be parallelized using [**OpenCL**](https://www.khronos.org/opencl/). Its working is similar to the `cpu` class, whereby a `gpu` object needs to created before it can used. However it is also advisable to check the available GPUs on your PC before running.
 
 * An example of an element-wise matrix multiplication:
 ```python
@@ -87,12 +88,12 @@ C = gpu.mul(A,A)
 ```
 Again You are Done!  
 
-* **WARNING**: If the `gpu.findGPU()` functions does not print out any string related to your PC's GPUs, it is safe to assume that you have not installed your drivers for your native GPUs yet, as such please go through **full installtion procedure**.
+* **WARNING**: If the `gpu.findGPU()` functions does not print out any string related to your PC's GPUs, it is safe to assume that you have not installed your drivers for your native GPUs yet, as such please go through [**full installtion procedure**](docs/fullInstall.md).
 
 * **Available functions**:
 1. `findGPU()` : Provides a List of GPUs available in your PC and uses the first GPU on the list to perform the operations on.
 
-2. `mul(A,B)`  : Element-wise vector multiplication where `A` and `B` are 1-D Arrays with the same size and data-type.
+2. `mul(A,B)`  : Element-wise vector multiplication where `A` and `B` are 1-D Arrays with the same size and data-type. Returns a 1-D Array.
 
 
 ### Problems and Help
