@@ -45,10 +45,25 @@ $ sudo apt-get -y install cmake
 ```
  Now you have [**CMake**](https://cmake.org/) and almost half way there! Keep it up!
 
+## 4. Faster and Parallel
+This step will you on how to get [**Eigen3**](http://eigen.tuxfamily.org/index.php?title=Main_Page) and [**OpenMP**](https://www.openmp.org/wp-content/uploads/OpenMP-4.5-1115-CPP-web.pdf) which are core software of this library. Just follow the next few steps:
 
+1. Installing Eigen3 on your system:
+```
+$ sudo apt-get install libeigen3-dev
+```
 
+ 2. Installing OpenMP on your system:
+```
+ $ sudo apt-get install libomp-dev
+```
+ Now you should have 2 of the most important software for this library.
 
+ ## 5. Binding with pybind11
+ Even though you will require to clone pybind11 into your local repository, we highly recommend that you install *pybind11* into your python enviroment(Ananconda) to do so:
+ ```
+ (base) user@user:~/$ conda install -c conda-forge pybind11
+ ```
 
-
-
+## 6. 
 **WOrk iN PrOGresS**
