@@ -1,8 +1,8 @@
 # Full Installation Guide 
-A step-by-step guide on how fulfill all dependencies before [installing the library](../README.md#quick-installation). To use **__Fast__** , the user must meet multiple system requirements since this would allow the users to modify and update thier library.
+A step-by-step guide on how fulfill all dependencies before [installing the library](../README.md#quick-installation). To use **__Fast__** , the user must meet multiple system requirements since this would allow the users to modify and update their library.
 
 ## 1. Installing Python
-Most users would already have `python` installed in thier system by now and **__Fast__** requires the `python` version to be `python 3.x`. To check if you meet the version requirement:
+Most users would already have `python` installed in their system by now and **__Fast__** requires the `python` version to be `python 3.x`. To check if you meet the version requirement:
 
 ```
 $ python --version
@@ -78,7 +78,7 @@ $ sudo apt-get install libeigen3-dev
 1. Not Uitilising the GPU
 2. Utilising the GPU
 
-If you feel that you do not require the use of your Graphics Card, you are still required to install [**OpenCL**](https://www.khronos.org/opencl/) into your OS but we highly recommedn that you at least try it out especially if you are dealing with large vectors/matrices, regardless you should follow part 1 of this installation process.
+If you feel that you do not require the use of your Graphics Card, you are still required to install [**OpenCL**](https://www.khronos.org/opencl/) into your OS but we highly recommend that you at least try it out especially if you are dealing with large vectors/matrices, you should follow part 1 of this installation process.
 
 ### 1. Not Uitilising the GPU
 If you do not intend to utilise the GPU, you are at the right place! All you have to do is just install [**OpenCL**](https://www.khronos.org/opencl/) into your system:
@@ -100,23 +100,26 @@ Go to **Settings**  > **Detail** > **About** in the graphics section you should 
 If the **About** page shows you the correct (external) graphics card you intend to use, then you have the relevant drivers installed, however, if you intend to use the integrated graphics card the you need to install the opencl drivers for [intel](https://software.intel.com/en-us/articles/opencl-drivers) CPUs or [AMD](https://developer.amd.com/tools-and-sdks/)
 
 #### 2. Missing Drivers For External Cards
-You need to install the drivers for the external graphics cards you are using, for that you can go to:
-**Software & Updates** > **Additional Drivers**  
+You need to install the drivers for the external graphics cards you are using, for that you can go to **Software & Updates** > **Additional Drivers**  
 and you should see:
+
 ![drivers](imgs/drivernvidia.png "Install one of the drivers shown")
 
 and install one of the recommended drivers for you. After installation you will be promted with a terminal:
+
 ![pssword](imgs/mokpasswrd.png "Calm Down its all good")
 
 Do not Fret! Press **Ok** and this will ask you to type in a password which will be required in the next boot up, you can type in any password you are comfortable with and restart your PC once the terminal closes.
 
 When you restart your PC, you will see blue screen :
+
 ![enroll_key](imgs/uefi_enroll_key.png "Enter the password you created earlier") 
 
 Go to **Enroll MOK** > Enter the password you made before rebooting the system > Your PC should go to the login screen
 
 Now you should check if your graphics card driver has been installed.
 Go to **Settings**  > **Detail** > **About** in the graphics section you should see:
+
 ![got it](imgs/identifygraphics.png "It should be there now!")
 
 You should have your external graphics card installed!
