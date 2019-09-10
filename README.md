@@ -1,6 +1,8 @@
 # Fast
 A library for Linear Algebra Calculations (In Progress). **__Fast__** allows users to perform linear algebra calculations in `python` faster than native `python` language or even `Numpy` since **__Fast__** uses [**PyBind11**](https://github.com/pybind/pybind11) to wrap C++ code into a `python` object. Furthermore, **__Fast__** utilises [**Eigen3**](http://eigen.tuxfamily.org/index.php?title=Main_Page) Library which specialises in linear algebra calculations and [**OpenMP**](https://www.openmp.org/wp-content/uploads/OpenMP-4.5-1115-CPP-web.pdf) to allow parallel matrix calculations to boost performance.
 
+## Version: 1.1
+
 ## System Requirements:
 1. Python 3.x
 2. C++ 11.0
