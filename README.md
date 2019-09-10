@@ -1,5 +1,5 @@
 # Fast
-A library for Linear Algebra Calculations (In Progress). **__Fast__** allows users to perform linear algebra calculations in 'python' faster than native `python` language or even `Numpy` since **__Fast__** uses [**PyBind11**](https://github.com/pybind/pybind11) to wrap C++ code into a `python` object. Furthermore, **__Fast__** utilises [**Eigen3**](http://eigen.tuxfamily.org/index.php?title=Main_Page) Library which specialises in linear algebra calculations and [**OpenMP**](https://www.openmp.org/wp-content/uploads/OpenMP-4.5-1115-CPP-web.pdf) to allow parallel matrix calculations to boost performance.
+A library for Linear Algebra Calculations (In Progress). **__Fast__** allows users to perform linear algebra calculations in `python` faster than native `python` language or even `Numpy` since **__Fast__** uses [**PyBind11**](https://github.com/pybind/pybind11) to wrap C++ code into a `python` object. Furthermore, **__Fast__** utilises [**Eigen3**](http://eigen.tuxfamily.org/index.php?title=Main_Page) Library which specialises in linear algebra calculations and [**OpenMP**](https://www.openmp.org/wp-content/uploads/OpenMP-4.5-1115-CPP-web.pdf) to allow parallel matrix calculations to boost performance.
 
 ## System Requirements:
 1. Python 3.x
@@ -21,8 +21,8 @@ If all of the aforementioned systems requirements have been met, you can do a qu
 2.  Clone [**PyBind11**](https://github.com/pybind/pybind11) into the **__Fast__** Folder as shown below:
 ![alt text](docs/imgs/clonepybind.png "Where to clone Pybind11")
 
-3.  Open Terminal and go to the **__Fast__** directory e.g.
-```linux
+3.  Open Terminal and go to the **__Fast__** directory
+```
 user@user:~$ cd Desktop/Fast
 user@user:~/Desktop/Fast$
 ```
