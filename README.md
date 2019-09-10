@@ -12,7 +12,7 @@ A library for Linear Algebra Calculations (In Progress). **__Fast__** allows use
 
 
 ## Quick Installation 
-If all of the aforementioned systems requirements have been met, you can do a quick installation and use the **__Fast__** Library, else it is highly recommended that you follow the [**full installation procedure**](docs/fullInstall.md) before this step. 
+If all of the aforementioned systems requirements have been met, you can do a quick installation and use the **__Fast__** Library, else it is highly recommended that you follow the [**full installation guide**](docs/fullInstall.md) before this step. 
 
 ### Steps to Take:
 
@@ -33,7 +33,7 @@ user@user:~/Desktop/Fast$
 ```
 * For the `option` parameter it is advised to use `develop` if users wish to customise the functions available in the library. However users can also use `install` as a parameter.
 * If no Error messages are shown during the build and installation process,you are now able to use **__Fast__**! See the next section on how to use Fast.
-* However, if there are errors, it is highly recommended that you follow [**full installation procedure**](docs/fullInstall.md) as you may have missing dependencies.
+* However, if there are errors, it is highly recommended that you follow [**full installation guide**](docs/fullInstall.md) as you may have missing dependencies.
 
 
 ### Using __Fast__
@@ -88,7 +88,7 @@ C = gpu.mul(A,A)
 ```
 Again You are Done!  
 
-* **WARNING**: If the `gpu.findGPU()` functions does not print out any string related to your PC's GPUs, it is safe to assume that you have not installed your drivers for your native GPUs yet, as such please go through [**full installation procedure**](docs/fullInstall.md).
+* **WARNING**: If the `gpu.findGPU()` functions does not print out any string related to your PC's GPUs, it is safe to assume that you have not installed your drivers for your native GPUs yet, as such please go through [**full installation guide**](docs/fullInstall.md).
 
 * **Available functions**:
 1. `findGPU()` : Provides a List of GPUs available in your PC and uses the first GPU on the list to perform the operations on.
