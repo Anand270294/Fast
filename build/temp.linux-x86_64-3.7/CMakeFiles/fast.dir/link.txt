@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -DVERSION_INFO=\"1.0\" -fopenmp -march=native -O1 -O3 -DNDEBUG  -shared  -o ../../src/fast/fast.cpython-37m-x86_64-linux-gnu.so CMakeFiles/fast.dir/src/module.cpp.o -flto -lOpenCL -lgomp -lpthread 

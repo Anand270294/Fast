@@ -85,7 +85,7 @@ public:
 		std::vector <cl::Platform> plt;
 		cl::Platform::get(&plt);
 
-		// Use Nvidia Platform for to obtain Device GPU
+		// Use Nvidia/AMD Platform for to obtain Device GPU
 		auto platform = plt.front();
 		std::vector < cl::Device > devices;
 		platform.getDevices(CL_DEVICE_TYPE_GPU, &devices);
@@ -101,8 +101,7 @@ public:
 		cl::Program prg(context, sources);
 		cl_int error = 0;
 		error = prg.build("-cl-std=CL1.2 -cl-fast-relaxed-math");
-
-		// Break the program here to precomplie and build then run 
+ 
 		
 		// Create buffers for the variables being used A, B and C
 		cl::Buffer A_buffer(context, CL_MEM_READ_ONLY | CL_MEM_HOST_NO_ACCESS | CL_MEM_COPY_HOST_PTR, size * sizeof(int), A.data());
@@ -144,7 +143,7 @@ public:
 		std::vector <cl::Platform> plt;
 		cl::Platform::get(&plt);
 
-		// Use Nvidia Platform for to obtain Device GPU
+		// Use Nvidia/AMD Platform for to obtain Device GPU
 		auto platform = plt.front();
 		std::vector < cl::Device > devices;
 		platform.getDevices(CL_DEVICE_TYPE_GPU, &devices);
@@ -192,52 +191,8 @@ class cpu {
 		return omp_get_max_threads();
 	}
 
-	std::vector<long> mul(std::vector<long> A, std::vector<long> B, int offset) {
-		int max_cores = omp_get_max_threads() - offset;
 
-		if ( A.size() != B.size()) {
-			std::vector<long> empty;
-			return empty;
-		}
-                
-		//#pragma omp parallel
-		std::vector<long> C;
-
-		#pragma omp parallel for ordered 
-		for (int i = 0; i < A.size(); i++) {
-			long temp = A.at(i) * B.at(i);
-
-			#pragma omp ordered
-			C.push_back(temp);
-		}
-
-		return C;
-
-	}
-
-	std::vector<float> mul(std::vector<float> A, std::vector<float> B, int offset) {
-		int max_cores = omp_get_max_threads() - offset;
-
-		if (A.size() != B.size()) {
-			std::vector<float> empty;
-			return empty;
-		}
-
-		std::vector<float> C;
-
-		#pragma omp parallel for ordered
-		for (std::size_t i = 0; i < A.size(); i++) {
-			float temp = A.at(i) * B.at(i);
-
-			#pragma omp ordered
-			C.push_back(temp);
-		}
-
-		return C;
-
-	}
-
-	std::vector<float> ExMul(std::vector<float> A, std::vector<float> B) {
+	std::vector<float> mul(std::vector<float> A, std::vector<float> B) {
 		Eigen::initParallel();
 
 		int cores = omp_get_max_threads();
@@ -247,26 +202,30 @@ class cpu {
 		Eigen::ArrayXf _A = Eigen::Map<Eigen::ArrayXf, Eigen::Unaligned>(A.data(), A.size());
 		Eigen::ArrayXf _B = Eigen::Map<Eigen::ArrayXf, Eigen::Unaligned>(B.data(), B.size());
 			
-		_A *= _B;
+		# pragma omp parallel for simd
+		for(std::size_t i = 0; i < _A.size(); i ++){
+			_A[i] = _A[i] * _B[i];
+		}	
 		
-
 		std::vector<float> C (_A.data(), _A.data() + _A.size());
 		return C;
 	}	
 
-	std::vector<int> ExMul(std::vector<int> A, std::vector<int> B) {
+	std::vector<int> mul(std::vector<int> A, std::vector<int> B) {
 		Eigen::initParallel();
 
 		int cores = omp_get_max_threads();
 		Eigen::setNbThreads(cores);
-
+		
 		// Convert into Eigen Class Arrays	
 		Eigen::ArrayXi _A = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(A.data(), A.size());
 		Eigen::ArrayXi _B = Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(B.data(), B.size());
-			
-		_A *= _B;
-		
 
+		# pragma omp parallel for simd
+		for(std::size_t i = 0; i < _A.size(); i ++){
+			_A[i] = _A[i] * _B[i];
+		}	
+		
 		std::vector<int> C (_A.data(), _A.data() + _A.size());
 		return C;
 	}	
@@ -296,23 +255,17 @@ PYBIND11_MODULE(fast, m) {
 			;
 
 		// CPU multi-core class for MultiCore multiplications
-			py::class_<cpu> (m, "cpu", py::dynamic_attr())
-			.def(py::init())
-			.def("get_maxCore", [](cpu & c){
-					return c.get_maxCores();
-			})
-			.def("mul", [](cpu & c, std::vector<long> A, std::vector<long> B, int offset){
-					return c.mul(A, B, offset);
-			})
-			.def("mul", [](cpu & c, std::vector<float> A, std::vector<float> B, int offset){
-					return c.mul(A, B, offset);
-			})
-			.def("ExMul", [](cpu & c, std::vector<float>A, std::vector<float> B){
-					return c.ExMul(A, B);
-			})
-			.def("ExMul", [](cpu & c, std::vector<int>A, std::vector<int> B){
-					return c.ExMul(A, B);
-			})
-			;
+		py::class_<cpu> (m, "cpu", py::dynamic_attr())
+		.def(py::init())
+		.def("get_maxCore", [](cpu & c){
+				return c.get_maxCores();
+		})
+		.def("mul", [](cpu & c, std::vector<int> A, std::vector<int> B){
+				return c.mul(A, B);
+		})
+		.def("mul", [](cpu & c, std::vector<float> A, std::vector<float> B){
+				return c.mul(A, B);
+		})
+		;
 
 }

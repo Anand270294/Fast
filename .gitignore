@@ -1,0 +1,10 @@
+# Files that are not be tracked by git
+
+.vscode
+
+/pybind11
+
+/src/fast
+/src/fast.*
+
+/build
