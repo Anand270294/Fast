@@ -100,12 +100,11 @@ Go to **Settings**  > **Detail** > **About** in the graphics section you should 
 If the **About** page shows you the correct (external) graphics card you intend to use, then you have the relevant drivers installed, however, if you intend to use the integrated graphics card the you need to install the opencl drivers for [intel](https://software.intel.com/en-us/articles/opencl-drivers) CPUs or [AMD](https://developer.amd.com/tools-and-sdks/)
 
 #### 2. Missing Drivers For External Cards
-You need to install the drivers for the external graphics cards you are using, for that you can go to **Software & Updates** > **Additional Drivers**  
-and you should see:
+You need to install the drivers for the external graphics cards you are using, for that you can go to **Software & Updates** > **Additional Drivers** and you should see:
 
 ![drivers](imgs/drivernvidia.png "Install one of the drivers shown")
 
-and install one of the recommended drivers for you. After installation you will be promted with a terminal:
+Install one of the recommended drivers for you. After installation you will be promted with a terminal:
 
 ![pssword](imgs/mokpasswrd.png "Calm Down its all good")
 
