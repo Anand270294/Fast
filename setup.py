@@ -58,7 +58,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name='fast',
-    version='1.0',
+    version='1.1',
     author='T Anandakkoomar',
     author_email='anand@entropicalabs.com',
     description='Fast Matrix/Vector Multiplication on GPU',

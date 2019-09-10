@@ -46,7 +46,7 @@ $ sudo apt-get -y install cmake
  Now you have [**CMake**](https://cmake.org/) and almost half way there! Keep it up!
 
 ## 4. Faster and Parallel
-This step will you on how to get [**Eigen3**](http://eigen.tuxfamily.org/index.php?title=Main_Page) and [**OpenMP**](https://www.openmp.org/wp-content/uploads/OpenMP-4.5-1115-CPP-web.pdf) which are core software of this library. Just follow the next few steps:
+This step will guide you on how to get [**Eigen3**](http://eigen.tuxfamily.org/index.php?title=Main_Page) and [**OpenMP**](https://www.openmp.org/wp-content/uploads/OpenMP-4.5-1115-CPP-web.pdf) which are core software of this library. Just follow the next few steps:
 
 1. Installing Eigen3 on your system:
 ```
@@ -65,5 +65,31 @@ $ sudo apt-get install libeigen3-dev
  (base) user@user:~/$ conda install -c conda-forge pybind11
  ```
 
-## 6. 
+ or:
+
+```
+(base) user@user:~/$ pip install pybind11
+```
+
+
+## 6. Maximize Your Graphics Card
+**__Fast__** requires [**OpenCL**](https://www.khronos.org/opencl/) to run. With regards to utilising your graphics card, users are provided with *2* options:
+
+1. Not Uitilising the GPU
+2. Utilising the GPU
+
+If you feel that you would not require the use of your Graphics Card, you are still required to install [**OpenCL**](https://www.khronos.org/opencl/) into your OS but we highly recommedn that you atleast try it out especially if you are dealing with large vectors/matrices, regardless you should follow part 1 of this installation process.
+
+### 1. Not Uitilising the GPU
+If you do not intend to utilise the GPU, you are at the right place! All you have to do is just install [**OpenCL**](https://www.khronos.org/opencl/) into your system:
+```
+$ sudo apt update
+$ sudo apt install ocl-icd-opencl-dev
+```
+Now you should be able to use **__Fast__** , go to [installing the library](https://github.com/Anand270294/Fast/tree/v1.1_Ex#quick-installation) to complete the installation.
+
+### 2. Utilising the GPU
+If you are an opportunist and would like boost your calculation speeds this is the section you should be at! 
+
+
 **WOrk iN PrOGresS**
